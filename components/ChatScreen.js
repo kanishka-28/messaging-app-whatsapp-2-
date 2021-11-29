@@ -12,7 +12,7 @@ import getRecipientEmail from "../utils/chats";
 const ChatScreen = ({ messages, chat }) => {
 
     const [user] = useAuthState(auth);
-    const [input, setinput] = useState(null)
+    const [input, setinput] = useState('')
     
     const [messageSnapShot] = useCollection(
         //go to collection chats of db then doc to a particular chat then go to collection messages
@@ -25,7 +25,9 @@ const ChatScreen = ({ messages, chat }) => {
 
     const sendMessage=(e)=>{
         e.preventDefault();    
-        if(input!==null || input!==''){
+        if(input===''){
+            return null
+        }
             //update the last seen
         db.collection('users').doc(user.uid).set(
             {
@@ -40,7 +42,6 @@ const ChatScreen = ({ messages, chat }) => {
             photoUrl: user.photoURL,
         })
         setinput('')
-        }
     }
 
     const ShowMessages=()=>{
