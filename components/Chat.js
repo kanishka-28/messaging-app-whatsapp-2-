@@ -1,23 +1,29 @@
 import { useRouter } from 'next/dist/client/router'
 import React, { useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { useCollection } from 'react-firebase-hooks/firestore'
 import { HiUserCircle } from "react-icons/hi"
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 import getRecipientEmail from '../utils/chats'
 
 const Chat = ({ id, users }) => {
 
     const router = useRouter();
-    const enterChat=()=>{
+    const enterChat = () => {
         router.push(`/chat/${id}`)
     }
     const [user] = useAuthState(auth);
     const name = getRecipientEmail(user, users)
-    
+    const [recipientSnapShot] = useCollection(db.collection('users').where('email', '==', getRecipientEmail(user, users)[0]))
+    const photo = recipientSnapShot?.docs?.[0]?.data()?.photo;
+
     return (
-        <div className="px-5 flex justify items-center border border-gray-300 py-2 cursor-pointer hover:bg-gray-200" onClick={enterChat}><div>
-                {/* <img src="" alt="profile" className="rounded-full w-10 h-10 cursor-pointer" /> */}
-            </div><div><HiUserCircle className="w-10 h-10 cursor-pointer hover:opacity-80" /></div>
+        <div className="px-5 flex justify items-center border border-gray-300 py-2 cursor-pointer hover:bg-gray-200" onClick={enterChat}>
+            
+            <div>
+            {photo?<img src={photo} alt="profile" className="w-8 h-8 rounded-full ml-1" />:
+            <div className="rounded-full bg-pink-200 w-10 h-10 items-center flex justify-center font-semibold">{name[0]?.slice(0,2).toUpperCase()}</div>}
+            </div>
             <p className="mx-3">{name}</p>
         </div>
     )

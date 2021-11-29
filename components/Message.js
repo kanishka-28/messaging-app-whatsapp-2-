@@ -4,7 +4,6 @@ import { auth } from '../firebase'
 
 const Message = ({ userName, message }) => {
     const [user] = useAuthState(auth);
-    console.log(user, userName);
     return (
         <>
             {userName === user.email ?

@@ -12,17 +12,21 @@ import getRecipientEmail from "../utils/chats";
 const ChatScreen = ({ messages, chat }) => {
 
     const [user] = useAuthState(auth);
-    const [input, setinput] = useState('')
+    const [input, setinput] = useState(null)
     
     const [messageSnapShot] = useCollection(
         //go to collection chats of db then doc to a particular chat then go to collection messages
         db.collection('chats').doc(chat.id).collection('messages').orderBy('timestamp', 'asc')
     )
 
-    const sendMessage=(e)=>{
-        e.preventDefault();
+    const [recipientSnapShot] = useCollection(db.collection('users').where('email', '==', getRecipientEmail(user, chat.users)[0]))
+    const photo = recipientSnapShot?.docs?.[0]?.data()?.photo;
+    const recipient = recipientSnapShot?.docs?.[0]?.data()
 
-        //update the last seen
+    const sendMessage=(e)=>{
+        e.preventDefault();    
+        if(input!==null || input!==''){
+            //update the last seen
         db.collection('users').doc(user.uid).set(
             {
                 lastseen: firebase.firestore.FieldValue.serverTimestamp(),
@@ -36,6 +40,7 @@ const ChatScreen = ({ messages, chat }) => {
             photoUrl: user.photoURL,
         })
         setinput('')
+        }
     }
 
     const ShowMessages=()=>{
@@ -54,10 +59,10 @@ const ChatScreen = ({ messages, chat }) => {
         <div className="bg-pink-100 h-full lg:w-3/4 md:w-2/3 w-full" style={{ backgroundImage: `url("https://upload.wikimedia.org/wikipedia/commons/b/b1/Little_background.jpg")` }}>
             <nav className="sticky top-0 bg-white p-3 px-10 flex justify-between">
                 <div className="flex gap-5 items-center">
-                    <HiUserCircle className="w-10 h-10 cursor-pointer hover:opacity-80" />
+                    {photo?<img src={photo} alt="profile" className="w-10 h-10 rounded-full" />:<HiUserCircle className="w-10 h-10 cursor-pointer hover:opacity-80" />}
                     <div>
                         <p className="font-bold text-l">{getRecipientEmail(user, chat.users)}</p>
-                        <p className="text-gray-600 text-xs">Last Seen : </p>
+                        <p className="text-gray-600 text-xs">Last Seen : {recipient?recipient.lastseen.seconds:'unavailable'}</p>
                     </div>
                 </div>
                 <div className="flex gap-5 justify-evenly items-center">
