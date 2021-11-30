@@ -3,13 +3,18 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import ChatScreen from '../../components/ChatScreen'
 import Sidebar from '../../components/Sidebar'
 import { auth, db } from '../../firebase'
-
+import Head from 'next/dist/shared/lib/head'
+import whatsapp from '../../assets/images/whatsappURL'
 const Chat = ({messages, chat}) => {
     
     const [user] = useAuthState(auth);
 
     return (
         <>
+        <Head>
+            <title>{chat.users[1]}</title>
+            <link rel="icon" href={whatsapp} />
+        </Head>
         <div className="flex md:hidden">
             <ChatScreen messages={messages} chat={chat} screen="mobile"/>
         </div>

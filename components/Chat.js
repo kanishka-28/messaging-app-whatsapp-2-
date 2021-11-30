@@ -24,7 +24,7 @@ const Chat = ({ id, users }) => {
             {photo?<img src={photo} alt="profile" className="w-10 h-10 rounded-full ml-1" />:
             <div className="rounded-full bg-pink-200 w-10 h-10 items-center flex justify-center font-semibold">{name[0]?.slice(0,2).toUpperCase()}</div>}
             </div>
-            <p className="mx-3">{name}</p>
+            <p className="mx-3 break-words" style={{maxWidth: "10rem"}}>{name}</p>
         </div>
     )
 }

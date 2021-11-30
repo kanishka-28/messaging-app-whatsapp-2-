@@ -67,7 +67,7 @@ const ChatScreen = ({ messages, chat , screen}) => {
         }
     }
     return (
-        <div className="flex flex-col justify-around bg-pink-100 h- lg:w-3/4 md:w-2/3 w-full" id="bottom" style={{ backgroundImage: `url("https://upload.wikimedia.org/wikipedia/commons/b/b1/Little_background.jpg")` }}>
+        <div className="flex flex-col justify-between bg-pink-100 h- lg:w-3/4 md:w-2/3 w-full" id="bottom" style={{ backgroundImage: `url("https://upload.wikimedia.org/wikipedia/commons/b/b1/Little_background.jpg")` }}>
             <nav className="sticky top-0 bg-white p-3 px-6 flex justify-between items-center">
                 {screen==="mobile" && <ImPointLeft className="w-6 h-5 mr-2 cursor-pointer" onClick={()=>router.push("/")}/>}
                 <div className="flex gap-4 items-center">
@@ -87,7 +87,7 @@ const ChatScreen = ({ messages, chat , screen}) => {
             <footer className="sticky bottom-0 bg-gray-300 p-3 px-10 flex justify-between z-30">
             <form className="flex gap-5 items-center w-full">
                 <CgSmileMouthOpen className="w-6 h-6"/>
-                <input value={input} className="w-full p-4 rounded-md" onChange={(e)=>setinput(e.target.value)}/>
+                <input value={input} className="md:w-full w-3/4 p-4 rounded-md" onChange={(e)=>setinput(e.target.value)}/>
                 <ImMic className="w-6 h-6 rounded-full text-"/>
                 <button type="submit" className="bg-green-500 font-bold px-2 py-1 rounded-md" onClick={sendMessage} >Send</button>
             </form>
