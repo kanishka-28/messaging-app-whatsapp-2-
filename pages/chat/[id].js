@@ -11,11 +11,11 @@ const Chat = ({messages, chat}) => {
     return (
         <>
         <div className="flex md:hidden">
-            <ChatScreen messages={messages} chat={chat}/>
+            <ChatScreen messages={messages} chat={chat} screen="mobile"/>
         </div>
         <div className="hidden md:flex">
             <Sidebar/>
-            <ChatScreen messages={messages} chat={chat}/>
+            <ChatScreen messages={messages} chat={chat} screen="laptop"/>
         </div>
         </>
     )

@@ -9,7 +9,7 @@ export default function Home() {
         <title>WhatsApp 2.0</title>
         <link rel="icon" href={whatsapp} />
       </Head>
-      <div className="bg-yellow-100 h-screen flex">
+      <div className=" h-screen flex">
         <Sidebar/>
       </div>
     </>

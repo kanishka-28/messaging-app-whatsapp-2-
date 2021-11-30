@@ -21,7 +21,7 @@ const Chat = ({ id, users }) => {
         <div className="px-5 flex justify items-center border border-gray-300 py-2 cursor-pointer hover:bg-gray-200" onClick={enterChat}>
             
             <div>
-            {photo?<img src={photo} alt="profile" className="w-8 h-8 rounded-full ml-1" />:
+            {photo?<img src={photo} alt="profile" className="w-10 h-10 rounded-full ml-1" />:
             <div className="rounded-full bg-pink-200 w-10 h-10 items-center flex justify-center font-semibold">{name[0]?.slice(0,2).toUpperCase()}</div>}
             </div>
             <p className="mx-3">{name}</p>
