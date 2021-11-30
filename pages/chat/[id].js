@@ -13,7 +13,7 @@ const Chat = ({messages, chat}) => {
         <>
         <Head>
             <title>{chat.users[1]}</title>
-            <link rel="icon" href={whatsapp} />
+            <link rel="icon" href={whatsapp}/>
         </Head>
         <div className="flex md:hidden">
             <ChatScreen messages={messages} chat={chat} screen="mobile"/>

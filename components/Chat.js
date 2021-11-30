@@ -13,18 +13,20 @@ const Chat = ({ id, users }) => {
         router.push(`/chat/${id}`)
     }
     const [user] = useAuthState(auth);
-    const name = getRecipientEmail(user, users)
+    const email = getRecipientEmail(user, users)
     const [recipientSnapShot] = useCollection(db.collection('users').where('email', '==', getRecipientEmail(user, users)[0]))
     const photo = recipientSnapShot?.docs?.[0]?.data()?.photo;
-
+    const name = recipientSnapShot?.docs?.[0]?.data()?.name;
+    console.log(recipientSnapShot?.docs?.[0]?.data()?.name);
+    
     return (
         <div className="px-5 flex justify items-center border border-gray-300 py-2 cursor-pointer hover:bg-gray-200" onClick={enterChat}>
             
             <div>
             {photo?<img src={photo} alt="profile" className="w-10 h-10 rounded-full ml-1" />:
-            <div className="rounded-full bg-pink-200 w-10 h-10 items-center flex justify-center font-semibold">{name[0]?.slice(0,2).toUpperCase()}</div>}
+            <div className="rounded-full bg-pink-200 w-10 h-10 items-center flex justify-center font-semibold">{email[0]?.slice(0,2).toUpperCase()}</div>}
             </div>
-            <p className="mx-3 break-words" style={{maxWidth: "10rem"}}>{name}</p>
+            <p className="mx-3">{name?name:email}</p>
         </div>
     )
 }

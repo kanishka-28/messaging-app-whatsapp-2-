@@ -22,7 +22,8 @@ const ChatScreen = ({ messages, chat , screen}) => {
     const [recipientSnapShot] = useCollection(db.collection('users').where('email', '==', getRecipientEmail(user, chat.users)[0]))
     const photo = recipientSnapShot?.docs?.[0]?.data()?.photo;
     const recipient = recipientSnapShot?.docs?.[0]?.data()
-
+    const name = recipientSnapShot?.docs?.[0]?.data()?.name;
+    const email = getRecipientEmail(user, chat.users);
     const endOfMessagesRef = useRef(null)
 
     const scrollToBottom=()=>{
@@ -73,7 +74,7 @@ const ChatScreen = ({ messages, chat , screen}) => {
                 <div className="flex gap-4 items-center">
                     {photo?<img src={photo} alt="profile" className="w-10 h-10 rounded-full" />:<HiUserCircle className="w-10 h-10 cursor-pointer hover:opacity-80" />}
                     <div>
-                        <p className="font-bold text-l">{getRecipientEmail(user, chat.users)}</p>
+                        <p className="font-bold text-l">{name?name:email}</p>
                         <p className="text-gray-600 text-xs">Last Seen : {recipient?recipient.lastseen.seconds:'unavailable'}</p>
                     </div>
                 </div>
@@ -83,7 +84,7 @@ const ChatScreen = ({ messages, chat , screen}) => {
                 </div>
             </nav>
             <div className="bg-red-"><ShowMessages/></div>
-            <div className="" ref={endOfMessagesRef}></div>
+            <div className="h-16" ref={endOfMessagesRef}></div>
             <footer className="sticky bottom-0 bg-gray-300 p-3 px-10 flex justify-between z-30">
             <form className="flex gap-5 items-center w-full">
                 <CgSmileMouthOpen className="w-6 h-6"/>
