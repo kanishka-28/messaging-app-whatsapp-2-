@@ -28,11 +28,13 @@ const ChatScreen = ({ messages, chat, screen }) => {
     const email = getRecipientEmail(user, chat.users);
     const endOfMessagesRef = useRef(null)
 
+    console.log(endOfMessagesRef.current);
     const scrollToBottom = () => {
-        endOfMessagesRef.current.scrollIntoView({
+        endOfMessagesRef.current?.scrollIntoView({
             behavior: "smooth",
             block: "start"
         })
+        return null;
     }
     const sendMessage = (e) => {
         document.getElementById('bottom').scrollIntoView();

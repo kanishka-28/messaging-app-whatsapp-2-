@@ -17,7 +17,7 @@ const Chat = ({ id, users }) => {
     const [recipientSnapShot] = useCollection(db.collection('users').where('email', '==', getRecipientEmail(user, users)[0]))
     const photo = recipientSnapShot?.docs?.[0]?.data()?.photo;
     const name = recipientSnapShot?.docs?.[0]?.data()?.name;
-    console.log(recipientSnapShot?.docs?.[0]?.data()?.name);
+    // console.log(recipientSnapShot?.docs?.[0]?.data()?.name);
     
     return (
         <div className="px-5 flex justify items-center border border-gray-300 py-2 cursor-pointer hover:bg-gray-200" onClick={enterChat}>
