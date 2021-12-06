@@ -24,7 +24,7 @@ const ChatScreen = ({ messages, chat, screen }) => {
     const photo = recipientSnapShot?.docs?.[0]?.data()?.photo;
     const recipient = recipientSnapShot?.docs?.[0]?.data()
     const name = recipientSnapShot?.docs?.[0]?.data()?.name;
-    const lastseen = recipientSnapShot?.docs?.[0]?.data()?.lastseen.toDate();
+    const lastseen = recipientSnapShot?.docs?.[0]?.data()?.lastseen?.toDate();
     const email = getRecipientEmail(user, chat.users);
     const endOfMessagesRef = useRef(null)
 
